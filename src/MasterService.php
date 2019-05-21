@@ -2,7 +2,7 @@
 
 namespace Knovators\Masters;
 
-use App\Support\HTTPCode;
+
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
@@ -14,6 +14,7 @@ use Knovators\Masters\Http\Requests\Masters\UpdateRequest;
 use Knovators\Masters\Http\Resources\MasterCollection;
 use Knovators\Masters\Models\Master;
 use Knovators\Masters\Repository\MasterRepository;
+use Knovators\Support\Helpers\HTTPCode;
 use Knovators\Support\Traits\APIResponse;
 use Knovators\Support\Traits\DestroyObject;
 use Prettus\Validator\Exceptions\ValidatorException;

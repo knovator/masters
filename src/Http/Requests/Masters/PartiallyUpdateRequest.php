@@ -2,8 +2,8 @@
 
 namespace Knovators\Masters\Http\Requests\Masters;
 
-use App\Support\APIResponse;
 use Illuminate\Foundation\Http\FormRequest;
+use Knovators\Support\Traits\APIResponse;
 
 /**
  * Class PartiallyUpdateRequest
