@@ -2,16 +2,17 @@
 
 namespace Knovators\Masters\Models;
 
-use Knovators\Media\Models\Media;
-use Knovators\Support\Traits\HasSlug;
-use Knovators\Support\Traits\HasModelEvent;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Knovators\Media\Models\Media;
+use Knovators\Support\Traits\HasModelEvent;
+use Knovators\Support\Traits\HasSlug;
 
 /**
- * Class Role
- * @package App\Modules\User\Models
+ * Class Master
+ *
+ * @package Knovators\Masters\Models
  */
 class Master extends Model
 {

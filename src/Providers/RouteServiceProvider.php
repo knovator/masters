@@ -26,12 +26,11 @@ class RouteServiceProvider extends ServiceProvider
     /**
      * Define the routes for the application.
      */
-    public function map()
-    {
+    public function map() {
         Route::namespace($this->namespace)
-            ->group(function () {
-                MasterRoute::register();
-            });
+             ->group(function () {
+                 MasterRoute::register();
+             });
     }
 
 

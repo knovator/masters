@@ -5,8 +5,8 @@ namespace Knovators\Masters\Repository;
 
 
 use Illuminate\Database\Eloquent\Builder;
-use Knovators\Masters\Criteria\IsActiveCriteria;
 use Knovators\Masters\Models\Master;
+use Knovators\Support\Criteria\IsActiveCriteria;
 use Knovators\Support\Traits\BaseRepository;
 use Knovators\Support\Traits\StoreWithTrashedRecord;
 
