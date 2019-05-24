@@ -20,7 +20,7 @@ class MasterRoute extends RouteRegistrar
             $this->resource('masters', 'MasterController');
 
             $this->name('masters.')->group(function () {
-                $this->name('partially.update')->put('masters/partiallyUpdate/{masters}', 'MasterController@partiallyUpdate');
+                $this->name('partially.update')->put('masters/partiallyUpdate/{master}', 'MasterController@partiallyUpdate');
                 $this->name('childs.index')->get('sub-masters/list', 'MasterController@childMasters');
             });
         });
@@ -31,7 +31,7 @@ class MasterRoute extends RouteRegistrar
         });
 
 
-        $this->model('masters', $this->config('model'));
+        $this->model('master', $this->config('model'));
     }
 
 
