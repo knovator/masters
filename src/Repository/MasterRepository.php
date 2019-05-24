@@ -4,9 +4,8 @@
 namespace Knovators\Masters\Repository;
 
 
-use Illuminate\Database\Eloquent\Builder;
+use Knovators\Masters\Criteria\IsActiveCriteria;
 use Knovators\Masters\Models\Master;
-use Knovators\Support\Criteria\IsActiveCriteria;
 use Knovators\Support\Traits\BaseRepository;
 use Knovators\Support\Traits\StoreWithTrashedRecord;
 
@@ -23,19 +22,16 @@ class MasterRepository extends BaseRepository
      * Configure the Model
      *
      **/
-    public function model() {
-
-        if ($model = config('masters.model')) {
-            return $model;
-        }
-
+    public function model()
+    {
         return Master::class;
     }
 
     /**
      * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
-    public function boot() {
+    public function boot()
+    {
         $this->pushCriteria(IsActiveCriteria::class);
     }
 
@@ -46,8 +42,9 @@ class MasterRepository extends BaseRepository
      * @throws \Prettus\Repository\Exceptions\RepositoryException
      * @throws \Exception
      */
-    public function getActiveParentMasters($input) {
-        $masters = $this->model->whereNull('parent_id')->orderByDesc('id')->with('image');
+    public function getActiveParentMasters($input)
+    {
+        $masters = $this->model->whereNull('parent_id')->orderByDesc('id');
         if (isset($input['code'])) {
             $masters = $masters->whereCode($input['code']);
         }
@@ -57,16 +54,16 @@ class MasterRepository extends BaseRepository
             $masters = $masters->with([
                 'childMasters' => function ($query) use ($input) {
                     if (isset($input['length'])) {
-                        /** @var Builder $query */
-                        $query->inRandomOrder()->take($input['length']);
+                        $query = $query->inRandomOrder()->take($input['length']);
                     }
-                    $query->with('image')->isActive();
+                    $query->isActive();
                 }
             ]);
             $masters = $masters->get()->keyBy('code');
         } else {
             $masters = datatables()->of($masters)
-                                   ->make(true);
+                ->editColumn('image', '{{$master_image}}')
+                ->make(true);
         }
         $this->resetModel();
 
@@ -78,12 +75,14 @@ class MasterRepository extends BaseRepository
      * @return \Illuminate\Database\Eloquent\Model
      * @throws \Exception
      */
-    public function getSubMasterList($input) {
+    public function getSubMasterList($input)
+    {
         $masters = $this->model
-            ->where('parent_id', '=', $input['parent_id'])->with('image')->orderByDesc('id');
+            ->where('parent_id', '=', $input['parent_id'])->orderByDesc('id');
 
         return datatables()->of($masters)
-                           ->make(true);
+            ->editColumn('image', '{{$master_image}}')
+            ->make(true);
     }
 
 
@@ -93,9 +92,10 @@ class MasterRepository extends BaseRepository
      * @return \Illuminate\Database\Eloquent\Model|null|object|static
      * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
-    public function findByNameWithMaster($name, $parentId) {
+    public function findByNameWithMaster($name, $parentId)
+    {
         $master = $this->model->where([
-            'name'      => $name,
+            'name' => $name,
             'parent_id' => $parentId
         ])->first();
         $this->resetModel();

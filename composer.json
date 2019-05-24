@@ -2,10 +2,10 @@
     "name": "knovators/masters",
     "description": "This is master module description",
     "type": "library",
-    "minimum-stability": "dev",
     "require": {
         "prettus/l5-repository": "^2.6"
     },
+    "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
             "Knovators\\Masters\\": "src/"
