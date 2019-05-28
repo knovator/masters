@@ -60,7 +60,13 @@ class Master extends Model
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function image() {
-        return $this->belongsTo(Media::class, 'image_id', 'id')->select(['id', 'name','type','mime_type','uri']);
+        return $this->belongsTo(Media::class, 'image_id', 'id')->select([
+            'id',
+            'name',
+            'type',
+            'mime_type',
+            'uri'
+        ]);
     }
 
 
