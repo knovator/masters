@@ -19,8 +19,7 @@ class UpdateRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
-    {
+    public function authorize() {
         return true;
     }
 
@@ -29,13 +28,13 @@ class UpdateRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            'name' => 'required|string',
-            'code' => 'required|string|unique:masters,code,' . $this->master->id . ',id,deleted_at,NULL',
+            'name'      => 'required|string',
+            'code'      => 'required|string|unique:masters,code,' . $this->master->id . ',id,deleted_at,NULL',
+            'is_active' => 'required|boolean',
             'parent_id' => 'nullable|exists:masters,id|not_in:' . $this->master->id,
-            'file_id' => 'nullable|exists:files,id',
+            'image_id'   => 'nullable|exists:files,id',
         ];
     }
 
@@ -44,8 +43,7 @@ class UpdateRequest extends FormRequest
      *
      * @return array
      */
-    public function messages()
-    {
+    public function messages() {
         return [
             'parent_id.not_in' => 'you can not have parent id as your own id'
         ];

@@ -2,15 +2,17 @@
 
 namespace Knovators\Masters\Models;
 
-use Knovators\Support\Traits\HasSlug;
-use Knovators\Support\Traits\HasModelEvent;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Knovators\Media\Models\Media;
+use Knovators\Support\Traits\HasModelEvent;
+use Knovators\Support\Traits\HasSlug;
 
 /**
- * Class Role
- * @package App\Modules\User\Models
+ * Class Master
+ *
+ * @package Knovators\Masters\Models
  */
 class Master extends Model
 {
@@ -27,7 +29,7 @@ class Master extends Model
         'code',
         'is_active',
         'parent_id',
-        'file_id',
+        'image_id',
         'slug',
         'created_by',
         'deleted_by',
@@ -43,18 +45,22 @@ class Master extends Model
      *  Parent to child has many relationship
      * @return HasMany
      */
-    public function childMasters(): HasMany
-    {
+    public function childMasters() : HasMany {
         return $this->hasMany(Master::class, 'parent_id', 'id');
     }
-
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function parent()
-    {
+    public function parent() {
         return $this->belongsTo(Master::class, 'parent_id', 'id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function image() {
+        return $this->belongsTo(Media::class, 'image_id', 'id')->select(['id', 'name','type','mime_type','uri']);
     }
 
 
@@ -62,8 +68,7 @@ class Master extends Model
      * @param $query
      * @return mixed
      */
-    public function scopeIsActive($query)
-    {
+    public function scopeIsActive($query) {
         return $query->where('is_active', '=', 1);
     }
 
@@ -72,8 +77,7 @@ class Master extends Model
      * @param $code
      * @return mixed
      */
-    public function scopeWhereCode($query, $code)
-    {
+    public function scopeWhereCode($query, $code) {
         if (is_array($code)) {
             return $query->whereIn('code', $code);
         }

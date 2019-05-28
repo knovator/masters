@@ -19,8 +19,7 @@ class CreateRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
-    {
+    public function authorize() {
         return true;
     }
 
@@ -29,13 +28,13 @@ class CreateRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            'name' => 'required|string',
-            'code' => 'required|string|unique:masters,code,NULL,id,deleted_at,NULL',
+            'name'      => 'required|string',
+            'code'      => 'required|string|unique:masters,code,NULL,id,deleted_at,NULL',
+            'is_active' => 'required|boolean',
             'parent_id' => 'nullable|exists:masters,id',
-            'file_id' => 'nullable|exists:files,id',
+            'image_id'   => 'nullable|exists:files,id',
         ];
     }
 }

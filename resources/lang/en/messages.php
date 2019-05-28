@@ -13,7 +13,7 @@ return [
     |
     */
     // Module messages
-    'created'          => ':module created successfully in master module.',
+    'created'          => ':module created successfully.',
     'updated'          => ':module updated successfully.',
     'deleted'          => ':module deleted successfully.',
     'retrieved'        => ':module retrieved successfully.',

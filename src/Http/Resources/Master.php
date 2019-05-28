@@ -3,6 +3,7 @@
 namespace Knovators\Masters\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Knovators\Media\Http\Resources\Media as MediaResource;
 
 /**
  * Class Master
@@ -14,7 +15,7 @@ class Master extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function toArray($request) {
@@ -23,6 +24,7 @@ class Master extends JsonResource
             'name'        => $this->name,
             'code'        => $this->code,
             'is_active'   => $this->is_active,
+            'image'       => new MediaResource($this->whenLoaded('image')),
             'sub_masters' => new MasterCollection($this->whenLoaded('childMasters'))
         ];
     }
