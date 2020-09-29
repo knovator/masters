@@ -27,7 +27,6 @@ return [
 
     ],
 
-
     'delete_relations' => []
 
 ];

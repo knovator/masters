@@ -34,7 +34,7 @@ class CreateRequest extends FormRequest
             'code'      => 'required|string|unique:masters,code,NULL,id,deleted_at,NULL',
             'is_active' => 'required|boolean',
             'parent_id' => 'nullable|exists:masters,id',
-            'image_id'   => 'nullable|exists:files,id',
+            'image_id'  => 'nullable|exists:files,id',
         ];
     }
 }

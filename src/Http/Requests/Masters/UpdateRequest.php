@@ -34,7 +34,7 @@ class UpdateRequest extends FormRequest
             'code'      => 'required|string|unique:masters,code,' . $this->master->id . ',id,deleted_at,NULL',
             'is_active' => 'required|boolean',
             'parent_id' => 'nullable|exists:masters,id|not_in:' . $this->master->id,
-            'image_id'   => 'nullable|exists:files,id',
+            'image_id'  => 'nullable|exists:files,id',
         ];
     }
 

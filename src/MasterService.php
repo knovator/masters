@@ -68,11 +68,9 @@ trait MasterService
      * @return mixed
      */
     private function makeResource($master) {
-
         if ($resource = config('masters.resource')) {
             return new $resource($master);
         }
-
         return new MasterResource($master);
     }
 
@@ -82,10 +80,11 @@ trait MasterService
      * @return JsonResponse
      * @throws ValidatorException
      */
-    public function update(Master $master, UpdateRequest $request) {
+    public function update($master, UpdateRequest $request) {
+        $input = $request->except(['code']);
         try {
-            $input = $request->all();
-            $this->masterRepository->update($input, $master->id);
+            $master->update($input);
+
             return $this->sendResponse($this->makeResource($master->fresh('image')),
                 trans('masters::messages.updated', ['module' => 'Master']),
                 HTTPCode::OK);
@@ -101,9 +100,9 @@ trait MasterService
     /**
      * @param Master $master
      * @return JsonResponse
-     * @throws \Exception
+     * @throws Exception
      */
-    public function destroy(Master $master) {
+    public function destroy($master) {
         try {
             return $this->destroyModelObject(config('masters.delete_relations'), $master,
                 'Master', 'masters');
@@ -115,12 +114,11 @@ trait MasterService
         }
     }
 
-
     /**
      * @param RetrieveRequest $request
      * @return JsonResponse
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function index(RetrieveRequest $request) {
         $input = $request->all();
@@ -154,7 +152,7 @@ trait MasterService
      * @param SubMasterRequest $request
      * @return JsonResponse
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function childMasters(SubMasterRequest $request) {
         $input = $request->all();
@@ -180,7 +178,7 @@ trait MasterService
      * @throws ValidatorException
      */
 
-    public function partiallyUpdate(Master $master, PartiallyUpdateRequest $request) {
+    public function partiallyUpdate($master, PartiallyUpdateRequest $request) {
         $input = $request->all();
         $this->masterRepository->update($input, $master->id);
 
@@ -193,10 +191,12 @@ trait MasterService
      * @param Master $master
      * @return JsonResponse
      */
-    public function show(Master $master) {
+    public function show($master) {
         $master->load('image');
+
         return $this->sendResponse($this->makeResource($master),
             trans('masters::messages.retrieved', ['module' => 'Masters']),
             HTTPCode::OK);
     }
+
 }

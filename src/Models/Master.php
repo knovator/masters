@@ -3,6 +3,7 @@
 namespace Knovators\Masters\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Knovators\Media\Models\Media;
@@ -46,27 +47,21 @@ class Master extends Model
      * @return HasMany
      */
     public function childMasters() : HasMany {
-        return $this->hasMany(Master::class, 'parent_id', 'id');
+        return $this->hasMany(self::class, 'parent_id', 'id');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function parent() {
-        return $this->belongsTo(Master::class, 'parent_id', 'id');
+        return $this->belongsTo(self::class, 'parent_id', 'id');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function image() {
-        return $this->belongsTo(Media::class, 'image_id', 'id')->select([
-            'id',
-            'name',
-            'type',
-            'mime_type',
-            'uri'
-        ]);
+        return $this->belongsTo(config('media.model'), 'image_id', 'id');
     }
 
 

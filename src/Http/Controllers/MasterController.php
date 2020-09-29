@@ -13,5 +13,4 @@ use Knovators\Masters\MasterService;
 class MasterController extends Controller
 {
     use MasterService;
-
 }
