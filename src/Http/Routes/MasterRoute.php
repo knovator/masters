@@ -2,14 +2,14 @@
 
 namespace Knovators\Masters\Http\Routes;
 
-use Knovators\Support\Routing\RouteRegistrar;
+use Knovators\Support\Routing\RouteRegister;
 
 /**
  * Class MasterRoute
  *
  * @package  Knovators\Masters\Http\Routes
  */
-class MasterRoute extends RouteRegistrar
+class MasterRoute extends RouteRegister
 {
     /**
      * Map all routes.
