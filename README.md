@@ -8,26 +8,26 @@ Migration Added:
 Features:
 - Get list of defined constant
 
-Require the knovators/masters package in your composer.json and update your dependencies:
+Require the knovator/masters package in your composer.json and update your dependencies:
 
 You want to need add masters repository in your composer.json file.
 
 ```"repositories": [
           {
               "type": "vcs",
-              "url": "git@git.knovator.in:knovators/master.git"
+              "url": "git@github.com:knovator/masters.git"
           }
       ],
 ```
 This package included 
 ```prettus/l5-repository``` packages.
 ```
-    composer require knovators/masters
+    composer require knovator/masters
  ```
-In your ```config/app.php``` add ```Knovators\Masters\MasterServiceProvider::class``` to the end of the providers array:
+In your ```config/app.php``` add ```knovator\Masters\MasterServiceProvider::class``` to the end of the providers array:
 
 Publish Configuration:
 
-```php artisan vendor:publish --provider "Knovators\Masters\MasterServiceProvider"```
+```php artisan vendor:publish --provider "knovator\Masters\MasterServiceProvider"```
 
-website : [ https://git.knovator.in/knovators/master ]
+website : [ https://github.com/knovator/master ]
