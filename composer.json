@@ -1,5 +1,5 @@
 {
-    "name": "knovators/masters",
+    "name": "knovator/masters",
     "description": "This is master module description",
     "type": "library",
     "require": {
@@ -8,7 +8,7 @@
     "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
-            "Knovators\\Masters\\": "src/"
+            "Knovator\\Masters\\": "src/"
         }
     }
 }
